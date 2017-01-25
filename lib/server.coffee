@@ -73,7 +73,7 @@ class Server extends EventEmitter
         if matches.length > 1
           @emit 'warn', "Found multiple matches for #{generator}"
 
-        source = matches[0]
+        source = matches[0].replace(/\//g, path.sep)
         @emit 'info', "Generating #{generatedFile} from #{source}"
 
         srcExt = path.extname(source).slice 1
