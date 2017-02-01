@@ -16,6 +16,7 @@ class CLI extends Command
     haw init
     haw init controller SomeController
     haw serve --port 1234
+    haw serveStatic --port 1234
     haw build --config ./package.json --output ./build
   '''
 
@@ -80,6 +81,15 @@ class CLI extends Command
     builder = new Builder options
     showOutput builder
     builder.build()
+
+  serveStatic: (options) ->
+    # clear existing default options that cause regeneration of files on each request
+    options.generate = {}
+    options.compile = {}
+    options.mount = {}
+    options.mount[options.output] = '/'
+
+    @serve options
 
   # Command shortcuts:
   @::i = @::initialize
